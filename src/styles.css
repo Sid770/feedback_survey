@@ -1,1 +1,160 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	--bg: #0f172a;
+	--panel: #111827;
+	--card: #1f2937;
+	--border: #1f2937;
+	--primary: #2563eb;
+	--accent: #22d3ee;
+	--text: #e5e7eb;
+	--muted: #94a3b8;
+	--success: #22c55e;
+	--warning: #eab308;
+	--danger: #ef4444;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html, body {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	font-family: 'Inter', 'Manrope', system-ui, -apple-system, sans-serif;
+	background: radial-gradient(circle at 20% 20%, rgba(34,211,238,0.08), transparent 35%),
+							radial-gradient(circle at 80% 0%, rgba(37,99,235,0.12), transparent 40%),
+							var(--bg);
+	color: var(--text);
+	line-height: 1.6;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.glass {
+	background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+	border: 1px solid rgba(255,255,255,0.08);
+	backdrop-filter: blur(12px);
+	box-shadow: 0 20px 60px rgba(15, 23, 42, 0.4);
+}
+
+.btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.65rem 1rem;
+	border-radius: 0.75rem;
+	border: 1px solid rgba(255,255,255,0.08);
+	background: linear-gradient(135deg, #2563eb, #22d3ee);
+	color: #0b1221;
+	font-weight: 600;
+	transition: transform 150ms ease, box-shadow 150ms ease, opacity 150ms ease;
+}
+
+.btn.secondary {
+	background: transparent;
+	color: var(--text);
+	border-color: rgba(255,255,255,0.12);
+}
+
+.btn.ghost {
+	background: rgba(255,255,255,0.04);
+	color: var(--text);
+	border-color: rgba(255,255,255,0.08);
+}
+
+.btn:focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: 2px;
+}
+
+.btn:hover {
+	transform: translateY(-1px);
+	box-shadow: 0 10px 30px rgba(37, 99, 235, 0.25);
+}
+
+.grid-auto-fill {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+	gap: 1rem;
+}
+
+.badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35rem;
+	padding: 0.2rem 0.65rem;
+	border-radius: 999px;
+	font-weight: 600;
+	font-size: 0.85rem;
+	letter-spacing: 0.01em;
+}
+
+.card {
+	border-radius: 1rem;
+	padding: 1rem;
+	background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+	border: 1px solid rgba(255,255,255,0.08);
+}
+
+.input, .select, textarea {
+	width: 100%;
+	background: rgba(255,255,255,0.04);
+	border: 1px solid rgba(255,255,255,0.08);
+	border-radius: 0.75rem;
+	padding: 0.75rem 0.9rem;
+	color: var(--text);
+}
+
+.input:focus, .select:focus, textarea:focus {
+	outline: 2px solid var(--accent);
+	outline-offset: 2px;
+}
+
+.table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.table th, .table td {
+	padding: 0.75rem 0.5rem;
+	text-align: left;
+}
+
+.table thead {
+	color: var(--muted);
+	font-size: 0.9rem;
+}
+
+.table tbody tr {
+	border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.skeleton {
+	position: relative;
+	overflow: hidden;
+	background: rgba(255,255,255,0.05);
+}
+
+.skeleton::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+	animation: shimmer 1.6s infinite;
+}
+
+@keyframes shimmer {
+	0% { transform: translateX(-100%); }
+	100% { transform: translateX(100%); }
+}

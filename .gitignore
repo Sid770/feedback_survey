@@ -42,3 +42,23 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+
+# .NET build outputs
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Logs and coverage
+*.log
+coverage/
+
+# Environment files
+.env
+.env.*
+
+# Angular SSR / server outputs
+dist-ssr/
+server/

@@ -1,0 +1,8 @@
+{
+  "framework": "angular",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist/hcl4/browser",
+  "env": {
+    "NG_APP_API_BASE": "https://feedback-survey-brhvfnf3a2dmbce2.centralindia-01.azurewebsites.net/api"
+  }
+}

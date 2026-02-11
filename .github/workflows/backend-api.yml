@@ -1,0 +1,60 @@
+name: backend-api
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-test-deploy:
+    runs-on: ubuntu-latest
+    env:
+      DOTNET_VERSION: '10.0.x'
+      PROJECT_PATH: MyApiProject/MyApiProject.csproj
+      WEBAPP_NAME: ${{ secrets.AZURE_WEBAPP_NAME }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Restore
+        run: dotnet restore $PROJECT_PATH
+
+      - name: Build
+        run: dotnet build $PROJECT_PATH --configuration Release --no-restore
+
+      - name: Test (if present)
+        run: |
+          if ls **/*Tests.csproj 1> /dev/null 2>&1; then
+            dotnet test --configuration Release --no-build
+          else
+            echo "No test projects found. Skipping tests.";
+          fi
+
+      - name: Publish
+        run: dotnet publish $PROJECT_PATH --configuration Release --output ./publish
+
+      - name: Set App Settings
+        if: ${{ env.WEBAPP_NAME != '' && secrets.STORAGE_CONNECTION != '' }}
+        uses: azure/appservice-settings@v1
+        with:
+          app-name: ${{ env.WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          app-settings-json: |
+            [
+              {"name":"StorageConnection","value":"${{ secrets.STORAGE_CONNECTION }}","slotSetting":false}
+            ]
+
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ env.WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: ./publish
