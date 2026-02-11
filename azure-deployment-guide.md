@@ -17,7 +17,7 @@
 3) **Create Table**: Open the storage account → Tables → +Table → name `Users`.
 4) **Get Connection String**: Storage account → Access keys → Connection string → copy.
 5) **Create App Service Plan**: App Services → Create → Hosting plan F1 (Windows).
-6) **Create Web App**: App Services → Create → Runtime stack `.NET 10` (set to match the project) → Windows → choose the plan.
+6) **Create Web App**: App Services → Create → Runtime stack `.NET 8 (LTS)` (set to match the project) → Windows → choose the plan.
 7) **Configure App Settings**: Web App → Configuration → Application settings → `StorageConnection=<connection-string>` → Save → Restart.
 8) **Deploy Backend**: Use GitHub Actions (backend-api) or manual publish. Confirm https://<app>.azurewebsites.net/swagger loads.
 9) **(Optional) Static Web App**: Static Web Apps → Create → build presets Angular. Set API URL in your frontend (environment prod) to the Web App URL.
